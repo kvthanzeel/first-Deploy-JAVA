@@ -29,7 +29,7 @@ jobs:
         run: docker tag myapp:latest ${{ secrets.DOCKER_HUB_USERNAME }}/my-javapp:latest
 
       - name: Push Docker image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:latest
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-javapp:latest
 
       - name: Deploy to EC2
         run: |
