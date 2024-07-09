@@ -36,6 +36,16 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > ssh_key
           chmod 600 ssh_key
 
+      - name: SonarQube Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          docker run --rm \
+            -e SONAR_HOST_URL=http://44.204.79.120:9000 \
+            -e SONAR_LOGIN=${SONAR_TOKEN} \
+            -v "$(pwd):/usr/src" \
+            sonarsource/sonar-scanner-cli
+
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i ssh_key ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
