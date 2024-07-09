@@ -31,9 +31,14 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-javapp:latest
 
+      - name: Create SSH key file
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > ssh_key
+          chmod 600 ssh_key
+
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_SSH_KEY }} ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ssh_key ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/my-javapp:latest
           docker stop myapp || true
           docker rm myapp || true
