@@ -37,6 +37,6 @@ jobs:
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/my-javapp:latest
           docker stop myapp || true
           docker rm myapp || true
-          docker run -d --name myapp -p 80:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/my-javapp:latest
+          docker run -d --name myapp -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/my-javapp:latest
           EOF
 
