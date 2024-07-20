@@ -35,7 +35,7 @@ jobs:
     - name: Login to AWS ECR
       run: |
         aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
-
+        
     - name: Build and Push Docker image to ECR
       env:
         ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
@@ -71,4 +71,4 @@ jobs:
           docker stop your-container || true
           docker rm your-container || true
           docker run -d --name your-container -p 8080:8080 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-EOF
+          EOF
