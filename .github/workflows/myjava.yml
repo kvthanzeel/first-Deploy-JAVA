@@ -80,5 +80,5 @@ jobs:
           
 
           # Run the new container
-          docker run -d --name my-container -p 80:80 315809974489.dkr.ecr.ap-south-1.amazonaws.com/java-code:Latest
+          docker run -d --name my-container -p 8080:8080 315809974489.dkr.ecr.ap-south-1.amazonaws.com/java-code:Latest
           EOF
