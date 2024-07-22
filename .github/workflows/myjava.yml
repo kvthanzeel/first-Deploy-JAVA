@@ -77,7 +77,8 @@ jobs:
           docker pull 315809974489.dkr.ecr.ap-south-1.amazonaws.com/java-code:Latest
 
           # Stop and remove any existing container
-          
+          docker stop my-container || true
+          docker rm my-container || true
 
           # Run the new container
           docker run -d --name my-container -p 8080:8080 315809974489.dkr.ecr.ap-south-1.amazonaws.com/java-code:Latest
