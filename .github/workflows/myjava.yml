@@ -74,12 +74,12 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i ssh_key ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
           # Pull the Docker image from ECR
           aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $ECR_REGISTRY
-          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
           # Stop and remove any existing container
-          docker stop my-container || true
-          docker rm my-container || true
+          sudo docker stop my-container || true
+          sudo docker rm my-container || true
 
           # Run the new container
-          docker run -d --name my-container -p 80:80 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          sudo docker run -d --name my-container -p 80:80 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           EOF
